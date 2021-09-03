@@ -1,15 +1,13 @@
-﻿from PyQt4 import QtCore, QtGui
-from PropertyModel import PropertyModel
-from TypeDelegate import TypeDelegate
-from CustomProperties import *
+from PySide6 import QtWidgets
 
-# todo add custom property register
+from src.PropertyEditor.PropertyModel import PropertyModel
+from src.PropertyEditor.TypeDelegate import TypeDelegate
 
 
-class PropertyEditorWidget(QtGui.QTreeView):
+class PropertyEditorWidget(QtWidgets.QTreeView):
     """ Subclassed QTreeView that displays property name & value in tidy manner."""
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super(PropertyEditorWidget, self).__init__(parent)
         self._model = PropertyModel(self)
         self.setModel(self._model)
