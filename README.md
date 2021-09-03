@@ -1,4 +1,4 @@
-## PyQt Property Editor ##
+## PySide Property Editor ##
 
 Uses GUI widget to change properties of the selected class
 
