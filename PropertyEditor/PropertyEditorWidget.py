@@ -1,7 +1,7 @@
 from PySide6 import QtWidgets
 
-from src.PropertyEditor.PropertyModel import PropertyModel
-from src.PropertyEditor.TypeDelegate import TypeDelegate
+from PropertyModel import PropertyModel
+from TypeDelegate import TypeDelegate
 
 
 class PropertyEditorWidget(QtWidgets.QTreeView):
