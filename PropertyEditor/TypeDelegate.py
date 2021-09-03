@@ -1,10 +1,11 @@
-﻿from PyQt4 import QtCore, QtGui
+from PySide6 import QtWidgets
+
 from Property import Property
 
 
-class TypeDelegate(QtGui.QItemDelegate):
+class TypeDelegate(QtWidgets.QItemDelegate):
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super(TypeDelegate, self).__init__(parent)
         self.boolProperties = {}
 
@@ -13,13 +14,15 @@ class TypeDelegate(QtGui.QItemDelegate):
         var = type(item.property())
 
         if var is int:
-            editor = QtGui.QSpinBox(parent)
+            editor = QtWidgets.QSpinBox(parent)
         elif var is float:
-            editor = QtGui.QDoubleSpinBox(parent)
+            editor = QtWidgets.QDoubleSpinBox(parent)
         elif var is str:
-            editor = QtGui.QLineEdit(parent)
+            # Multiline text
+            editor = QtWidgets.QPlainTextEdit(parent)
+            editor.setMinimumHeight(80)
         elif isinstance(item, Property):
-            editor = item.createEditor(parent, option, index)       
+            editor = item.createEditor(parent, option, index)
 
         return editor
 
@@ -34,7 +37,7 @@ class TypeDelegate(QtGui.QItemDelegate):
         elif var is float:
             editor.setValue(item.property())
         elif var is str:
-            editor.setText(item.property())
+            editor.setPlainText(item.property())
         elif isinstance(item, Property):
             item.setEditorData(editor, index)
 
@@ -43,18 +46,18 @@ class TypeDelegate(QtGui.QItemDelegate):
     def setModelData(self, editor, model, index):
         item = index.internalPointer()
         var = type(item.property())
-        
+
         if var is int:
             item.set_property(editor.value())
         elif var is float:
             item.set_property(editor.value())
         elif var is str:
-            item.set_property(str(editor.text()))
+            item.set_property(str(editor.toPlainText()))
         elif isinstance(item, Property):
             item.setModelData(editor, model, index)
 
     def boolHandler(self, painter, index):
-        editor = QtGui.QCheckBox(self.parent())
+        editor = QtWidgets.QCheckBox(self.parent())
         editor.setChecked(index.internalPointer().property())
         if not self.parent().indexWidget(index):
             self.parent().setIndexWidget(index, editor)
