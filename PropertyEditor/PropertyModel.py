@@ -1,7 +1,6 @@
-﻿from Property import Property
-from PyQt4 import QtCore, QtGui
+from PySide6 import QtCore, QtGui
 
-# todo add property filter that can edit only selected values
+from Property import Property
 
 
 class PropertyModel(QtCore.QAbstractItemModel):
@@ -24,7 +23,8 @@ class PropertyModel(QtCore.QAbstractItemModel):
 
         return parent_node.childCount()
 
-    def columnCount(self, parent):
+    # def columnCount(self, parent):
+    def columnCount(self, parent) -> int:
         """ Need only 2 columns. One for name and second for value."""
         return 2
 
